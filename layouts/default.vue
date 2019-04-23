@@ -101,10 +101,15 @@ export default {
           title: 'Welcome',
           to: '/'
         },
+        // {
+        //   icon: 'bubble_chart',
+        //   title: 'Inspire',
+        //   to: '/inspire'
+        // },
         {
-          icon: 'bubble_chart',
-          title: 'Inspire',
-          to: '/inspire'
+          icon: 'chat_bubble_outline',
+          title: 'single chat',
+          to: 'chat/single'
         }
       ],
       miniVariant: false,
