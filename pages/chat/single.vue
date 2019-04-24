@@ -13,12 +13,13 @@
       message
     </v-flex>
     <v-flex xs8>
-      <v-text-field v-model="msg" label="메시지를 입력하세요" />
+      <v-text-field v-model="msg" label="메시지를 입력하세요" @keyup.enter="sendMsg" />
     </v-flex>
     <v-flex xs2>
       <v-btn
         color="success"
         class="title black--text"
+        @click="sendMsg"
       >
         전송
       </v-btn>
@@ -51,12 +52,34 @@
 </template>
 
 <script>
+import io from 'socket.io-client'
+const socket = io('http://localhost:3000')
+
 export default {
   name: 'Single',
   data: () => ({
     msg: '',
-    recMsg: ['안녕하세요', '반갑습니다']
-  })
+    recMsg: ['채팅방에 입장하였습니다.']
+  }),
+  beforeMount() {
+    socket.on('sendMsg', (result) => {
+      if (result) {
+        this.recMsg.push(result)
+      } else {
+        alert('응답이 없습니다.')
+      }
+    })
+  },
+  methods: {
+    sendMsg(event) {
+      if (this.msg) {
+        socket.emit('sendMsg', this.msg)
+      } else {
+        alert('메시지가 없습니다.')
+      }
+    }
+  }
+
 }
 </script>
 
