@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "1.0.0",
-  "description": "My epic Nuxt.js project",
+  "description": "nuxt vuetify chat project client side.",
   "author": "김혜신",
   "private": true,
   "scripts": {
