@@ -58,8 +58,9 @@ const socket = io('http://localhost:3000')
 export default {
   name: 'Single',
   data: () => ({
+    initialMsg: 'single 채팅방에 입장하였습니다.',
     msg: '',
-    recMsg: ['채팅방에 입장하였습니다.']
+    recMsg: []
   }),
   beforeMount() {
     socket.on('sendMsg', (result) => {
@@ -69,6 +70,9 @@ export default {
         alert('응답이 없습니다.')
       }
     })
+  },
+  mounted() {
+    socket.emit('sendMsg', this.initialMsg)
   },
   methods: {
     sendMsg(event) {
