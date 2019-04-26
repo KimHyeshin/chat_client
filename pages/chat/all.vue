@@ -15,12 +15,13 @@
           message
         </v-flex>
         <v-flex xs8>
-          <v-text-field v-model="msg" label="메시지를 입력하세요" />
+          <v-text-field v-model="msg" label="메시지를 입력하세요" @keyup.enter="sendAll" />
         </v-flex>
         <v-flex xs2>
           <v-btn
             color="success"
             class="title black--text"
+            @click="sendAll"
           >
             전송
           </v-btn>
@@ -40,12 +41,13 @@
           Name
         </v-flex>
         <v-flex xs8>
-          <v-text-field v-model="username" label="이름을 입력하세요" />
+          <v-text-field v-model="username" label="이름을 입력하세요" @keyup.enter="enter" />
         </v-flex>
         <v-flex xs2>
           <v-btn
             color="success"
             class="title black--text"
+            @click="enter"
           >
             입장
           </v-btn>
@@ -78,6 +80,9 @@
 </template>
 
 <script>
+import io from 'socket.io-client'
+const socket = io('http://localhost:3000')
+
 export default {
   name: 'All',
   data: () => ({
@@ -85,7 +90,40 @@ export default {
     login: false,
     msg: '',
     arrMsg: []
-  })
+  }),
+  beforeMount() {
+    socket.on('sendAll', (result) => {
+      if (result) {
+        this.arrMsg.push(result)
+      } else {
+        alert('응답이 없습니다.')
+      }
+    })
+    socket.on('enter', (result) => {
+      if (result) {
+        alert(result)
+        this.username = ''
+      } else {
+        this.login = true
+      }
+    })
+  },
+  methods: {
+    sendAll() {
+      if (this.msg) {
+        socket.emit('sendAll', this.msg)
+      } else {
+        alert('메시지가 없습니다.')
+      }
+    },
+    enter() {
+      if (this.username) {
+        socket.emit('enter', this.username)
+      } else {
+        alert('이름이 비었습니다.')
+      }
+    }
+  }
 }
 </script>
 
