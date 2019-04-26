@@ -109,7 +109,12 @@ export default {
         {
           icon: 'chat_bubble_outline',
           title: 'single chat',
-          to: 'chat/single'
+          to: '/chat/single'
+        },
+        {
+          icon: 'chat_bubble_outline',
+          title: 'all chat',
+          to: '/chat/all'
         }
       ],
       miniVariant: false,
