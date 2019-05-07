@@ -101,9 +101,11 @@ export default {
     })
     socket.on('enter', (result) => {
       if (result) {
+        // login fail
         alert(result)
         this.username = ''
       } else {
+        // login success
         this.login = true
       }
     })
