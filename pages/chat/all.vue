@@ -80,8 +80,8 @@
 </template>
 
 <script>
-import io from 'socket.io-client'
-const socket = io('http://localhost:3000')
+// import io from 'socket.io-client'
+// const socket = io('http://localhost:3000')
 
 export default {
   name: 'All',
@@ -92,14 +92,14 @@ export default {
     arrMsg: []
   }),
   beforeMount() {
-    socket.on('sendAll', (result) => {
+    this.$sockOpen.on('sendAll', (result) => {
       if (result) {
         this.arrMsg.push(result)
       } else {
         alert('응답이 없습니다.')
       }
     })
-    socket.on('enter', (result) => {
+    this.$sockOpen.on('enter', (result) => {
       if (result) {
         // login fail
         alert(result)
@@ -113,14 +113,14 @@ export default {
   methods: {
     sendAll() {
       if (this.msg) {
-        socket.emit('sendAll', this.msg)
+        this.$sockOpen.emit('sendAll', this.msg)
       } else {
         alert('메시지가 없습니다.')
       }
     },
     enter() {
       if (this.username) {
-        socket.emit('enter', this.username)
+        this.$sockOpen.emit('enter', this.username)
       } else {
         alert('이름이 비었습니다.')
       }

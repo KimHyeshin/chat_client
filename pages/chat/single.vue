@@ -54,8 +54,8 @@
 </template>
 
 <script>
-import io from 'socket.io-client'
-const socket = io('http://localhost:3000')
+// import io from 'socket.io-client'
+// const socket = io('http://localhost:3000')
 
 export default {
   name: 'Single',
@@ -65,7 +65,7 @@ export default {
     recMsg: []
   }),
   beforeMount() {
-    socket.on('sendMsg', (result) => {
+    this.$sockOpen.on('sendMsg', (result) => {
       if (result) {
         this.recMsg.push(result)
       } else {
@@ -74,12 +74,12 @@ export default {
     })
   },
   mounted() {
-    socket.emit('sendMsg', this.initialMsg)
+    this.$sockOpen.emit('sendMsg', this.initialMsg)
   },
   methods: {
     sendMsg(event) {
       if (this.msg) {
-        socket.emit('sendMsg', this.msg)
+        this.$sockOpen.emit('sendMsg', this.msg)
       } else {
         alert('메시지가 없습니다.')
       }
