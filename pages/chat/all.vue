@@ -100,13 +100,17 @@ export default {
       }
     })
     this.$sockOpen.on('enter', (result) => {
-      if (result) {
+      if (result.code === 2) {
         // login fail
-        alert(result)
+        alert(result.message)
         this.username = ''
       } else {
         // login success
+        /* eslint-disable no-console */
+        // console.log('login success')
+        // console.log(result)
         this.login = true
+        this.username = result.name
       }
     })
   },
