@@ -115,6 +115,11 @@ export default {
           icon: 'chat_bubble_outline',
           title: 'all chat',
           to: '/chat/all'
+        },
+        {
+          icon: 'chat_bubble_outline',
+          title: 'group chat',
+          to: '/chat/group'
         }
       ],
       miniVariant: false,
